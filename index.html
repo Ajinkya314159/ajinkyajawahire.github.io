@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aerospace Engineer portfolio – crafting the future of flight and space. Expert in CFD, SolidWorks, ANSYS, UAV design, and propulsion systems." />
+  <meta name="keywords" content="Aerospace Engineer, CFD, SolidWorks, ANSYS, MATLAB, UAV, Propulsion, Spacecraft" />
+  <title>Ajinkya Jawahire | Aerospace Engineer</title>
+
+  <!-- Google Fonts: Syne + DM Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            mono: ['DM Mono', 'monospace'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            void:    '#080808',
+            surface: '#0f0f0f',
+            card:    '#141414',
+            border:  '#1e1e1e',
+            muted:   '#2a2a2a',
+            dim:     '#5a5a5a',
+            ghost:   '#888888',
+            silver:  '#b4b4b4',
+            ivory:   '#e8e8e8',
+            white:   '#f5f5f5',
+            cyan:    '#00e5ff',
+            'cyan-dim': '#00b8cc',
+            amber:   '#f5a623',
+          },
+          animation: {
+            'fade-up':    'fadeUp 0.7s ease forwards',
+            'fade-in':    'fadeIn 0.6s ease forwards',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+            'spin-slow':  'spin 20s linear infinite',
+            'scroll-y':   'scrollY 2s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp:  { '0%': { opacity: 0, transform: 'translateY(32px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            fadeIn:  { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+            scrollY: { '0%,100%': { transform: 'translateY(0)', opacity: 1 }, '50%': { transform: 'translateY(8px)', opacity: 0.3 } },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-family: 'DM Sans', sans-serif; background: #080808; color: #e8e8e8; }
+
+    /* ── Dot-grid background texture ── */
+    body {
+      background-color: #080808;
+      background-image: radial-gradient(circle, #1e1e1e 1px, transparent 1px);
+      background-size: 28px 28px;
+      min-height: 100vh;
+    }
+
+    /* ── Fixed outer bezel / dotted frame ── */
+    #bezel {
+      position: fixed;
+      inset: 14px;
+      border: 1.5px dotted #2a2a2a;
+      border-radius: 12px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    /* Corner accent marks */
+    #bezel::before, #bezel::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+    }
+    #bezel::before {
+      top: -1px; left: -1px;
+      border-top: 2px solid #00e5ff;
+      border-left: 2px solid #00e5ff;
+      border-radius: 3px 0 0 0;
+    }
+    #bezel::after {
+      bottom: -1px; right: -1px;
+      border-bottom: 2px solid #00e5ff;
+      border-right: 2px solid #00e5ff;
+      border-radius: 0 0 3px 0;
+    }
+    /* Inner corner marks (pseudo on a child) */
+    #bezel-inner::before, #bezel-inner::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+    }
+    #bezel-inner { position: absolute; inset: -1px; border-radius: 12px; pointer-events: none; }
+    #bezel-inner::before {
+      top: -1px; right: -1px;
+      border-top: 2px solid #00e5ff;
+      border-right: 2px solid #00e5ff;
+      border-radius: 0 3px 0 0;
+    }
+    #bezel-inner::after {
+      bottom: -1px; left: -1px;
+      border-bottom: 2px solid #00e5ff;
+      border-left: 2px solid #00e5ff;
+      border-radius: 0 0 0 3px;
+    }
+
+    /* ── Scrollable content wrapper ── */
+    #scroll-root {
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    #scroll-root::-webkit-scrollbar { width: 4px; }
+    #scroll-root::-webkit-scrollbar-track { background: transparent; }
+    #scroll-root::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+    #scroll-root::-webkit-scrollbar-thumb:hover { background: #00e5ff44; }
+
+    /* ── Nav blur ── */
+    #navbar {
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(8,8,8,0.92) !important;
+      border-bottom-color: #1e1e1e !important;
+      backdrop-filter: blur(20px);
+    }
+
+    /* ── Hero gradient overlay ── */
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(8,8,8,0.85) 0%, rgba(0,229,255,0.04) 50%, rgba(8,8,8,0.95) 100%);
+    }
+
+    /* ── Glowing cyan accent ── */
+    .glow-cyan { text-shadow: 0 0 30px rgba(0,229,255,0.45), 0 0 80px rgba(0,229,255,0.15); }
+    .glow-box   { box-shadow: 0 0 0 1px rgba(0,229,255,0.15), 0 4px 32px rgba(0,229,255,0.08); }
+    .btn-cyan {
+      background: transparent;
+      border: 1px solid #00e5ff;
+      color: #00e5ff;
+      transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
+    }
+    .btn-cyan:hover {
+      background: rgba(0,229,255,0.1);
+      box-shadow: 0 0 24px rgba(0,229,255,0.25);
+      transform: translateY(-1px);
+    }
+    .btn-white {
+      background: #e8e8e8;
+      color: #080808;
+      border: 1px solid #e8e8e8;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-white:hover { background: #fff; transform: translateY(-1px); }
+
+    /* ── Section reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ── Project cards ── */
+    .project-card {
+      background: #141414;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.35s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      border-color: rgba(0,229,255,0.3);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,255,0.1);
+    }
+    .project-card .overlay {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    }
+    .project-card:hover .overlay { opacity: 1; }
+    .project-card .view-btn {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
+    }
+    .project-card:hover .view-btn { opacity: 1; transform: none; }
+
+    /* ── Skill chips ── */
+    .skill-chip {
+      background: #141414;
+      border: 1px solid #1e1e1e;
+      border-radius: 6px;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    }
+    .skill-chip:hover {
+      border-color: rgba(0,229,255,0.35);
+      background: rgba(0,229,255,0.04);
+      transform: translateY(-2px);
+    }
+
+    /* ── Timeline ── */
+    .timeline-line {
+      position: absolute;
+      left: 11px; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, #1e1e1e 10%, #1e1e1e 90%, transparent);
+    }
+    .timeline-dot {
+      width: 10px; height: 10px;
+      background: #00e5ff;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+      box-shadow: 0 0 10px rgba(0,229,255,0.5);
+    }
+
+    /* ── Contact form ── */
+    .form-input {
+      background: #141414;
+      border: 1px solid #1e1e1e;
+      color: #e8e8e8;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+    }
+    .form-input::placeholder { color: #5a5a5a; }
+    .form-input:focus { border-color: rgba(0,229,255,0.5); box-shadow: 0 0 0 3px rgba(0,229,255,0.07); }
+
+    /* ── Modal ── */
+    #modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 99998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #modal-overlay.open { opacity: 1; pointer-events: all; }
+    #modal-box {
+      background: #0f0f0f;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    #modal-overlay.open #modal-box { transform: none; }
+    #modal-box::-webkit-scrollbar { width: 3px; }
+    #modal-box::-webkit-scrollbar-thumb { background: #2a2a2a; }
+
+    /* ── Hamburger ── */
+    .ham-line {
+      display: block; height: 1.5px;
+      background: #e8e8e8;
+      border-radius: 1px;
+      transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+    }
+    #ham-btn.open .ham-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #ham-btn.open .ham-line:nth-child(2) { opacity: 0; }
+    #ham-btn.open .ham-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile nav drawer ── */
+    #mobile-nav {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(320px, 80vw);
+      background: rgba(10,10,10,0.97);
+      border-left: 1px solid #1e1e1e;
+      z-index: 9997;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+      padding: 80px 32px 32px;
+      backdrop-filter: blur(24px);
+    }
+    #mobile-nav.open { transform: translateX(0); }
+
+    /* ── Scroll progress bar ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00e5ff, #00b8cc);
+      z-index: 99999;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(0,229,255,0.5);
+    }
+
+    /* ── Orbit ring decoration ── */
+    .orbit-ring {
+      border-radius: 50%;
+      border: 1px dotted rgba(0,229,255,0.12);
+      animation: spin 30s linear infinite;
+    }
+    .orbit-ring-2 {
+      animation-direction: reverse;
+      animation-duration: 45s;
+    }
+
+    /* ── Photo frame ── */
+    .photo-frame {
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,229,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── Stat cards ── */
+    .stat-card {
+      background: #141414;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      transition: border-color 0.25s;
+    }
+    .stat-card:hover { border-color: rgba(0,229,255,0.2); }
+
+    /* ── Tag pills ── */
+    .tag-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      background: rgba(0,229,255,0.06);
+      border: 1px solid rgba(0,229,255,0.15);
+      color: #00e5ff;
+      border-radius: 4px;
+      padding: 2px 8px;
+      display: inline-block;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #00e5ff;
+    }
+
+    /* ── Divider ── */
+    .divider { border-top: 1px solid #1e1e1e; }
+
+    /* ── Subtle grid lines for skills ── */
+    .skills-grid { display: grid; }
+
+    /* ── Tooltip for nav ── */
+    @keyframes navUnderline {
+      from { width: 0; } to { width: 100%; }
+    }
+    .nav-link {
+      position: relative;
+      color: #888;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      height: 1px; width: 0;
+      background: #00e5ff;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover { color: #e8e8e8; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Cursor glow follow ── */
+    #cursor-glow {
+      position: fixed;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.035) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 9990;
+      transform: translate(-50%, -50%);
+      transition: left 0.15s ease, top 0.15s ease;
+    }
+
+    /* ── Social icon hover ── */
+    .social-btn {
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 10px;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .social-btn:hover {
+      border-color: rgba(0,229,255,0.3);
+      background: rgba(0,229,255,0.06);
+      transform: translateY(-2px);
+    }
+
+    /* Focus ring accessibility */
+    a:focus-visible, button:focus-visible {
+      outline: 1.5px solid #00e5ff;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── Horizontal rule ── */
+    hr { border-top: 1px solid #1e1e1e; border-bottom: none; }
+  </style>
+</head>
+<body class="bg-void text-ivory">
+
+  <!-- Scroll progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Fixed bezel frame -->
+  <div id="bezel" aria-hidden="true"><div id="bezel-inner"></div></div>
+
+  <!-- Cursor glow -->
+  <div id="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Mobile nav overlay -->
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-[9996] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
+
+  <!-- Mobile nav drawer -->
+  <nav id="mobile-nav" aria-label="Mobile navigation">
+    <div class="section-label mb-10">Navigation</div>
+    <ul class="space-y-6">
+      <li><a href="#about"      class="font-display text-2xl text-ivory hover:text-cyan transition-colors" onclick="closeMobileNav()">About</a></li>
+      <li><a href="#projects"   class="font-display text-2xl text-ivory hover:text-cyan transition-colors" onclick="closeMobileNav()">Projects</a></li>
+      <li><a href="#skills"     class="font-display text-2xl text-ivory hover:text-cyan transition-colors" onclick="closeMobileNav()">Skills</a></li>
+      <li><a href="#experience" class="font-display text-2xl text-ivory hover:text-cyan transition-colors" onclick="closeMobileNav()">Experience</a></li>
+      <li><a href="#contact"    class="font-display text-2xl text-ivory hover:text-cyan transition-colors" onclick="closeMobileNav()">Contact</a></li>
+    </ul>
+    <div class="mt-10 pt-8 border-t border-border">
+      <a href="#" class="btn-cyan font-mono text-xs tracking-widest py-3 px-6 rounded-md inline-block">Download Resume</a>
+    </div>
+  </nav>
+
+  <!-- Modal overlay -->
+  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="handleModalClick(event)">
+    <div id="modal-box" class="p-8">
+      <button onclick="closeModal()" class="mb-6 section-label hover:text-white transition-colors flex items-center gap-2">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L1 7m0 0l6 6M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────────────────── SCROLL ROOT ── -->
+  <div id="scroll-root">
+
+    <!-- ══════════════════════════════════════ NAVBAR ══════════════ -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-[9995] border-b border-transparent" style="top:14px;">
+      <div class="max-w-6xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="#hero" class="font-display font-800 text-lg text-white tracking-tight hover:text-cyan transition-colors">
+          A<span class="text-cyan">.</span>Carter
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+          <a href="#about"      class="nav-link font-mono">About</a>
+          <a href="#projects"   class="nav-link font-mono">Projects</a>
+          <a href="#skills"     class="nav-link font-mono">Skills</a>
+          <a href="#experience" class="nav-link font-mono">Experience</a>
+          <a href="#contact"    class="nav-link font-mono">Contact</a>
+        </nav>
+
+        <!-- CTA + hamburger -->
+        <div class="flex items-center gap-4">
+          <a href="#" class="hidden md:inline-flex btn-cyan font-mono text-xs tracking-widest py-2 px-5 rounded-md">Resume ↓</a>
+          <button id="ham-btn" onclick="toggleMobileNav()" class="md:hidden flex flex-col gap-[5px] w-8 p-1" aria-label="Open menu">
+            <span class="ham-line w-full"></span>
+            <span class="ham-line w-3/4 self-end"></span>
+            <span class="ham-line w-full"></span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════ HERO ════════════════ -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden" style="padding-top:64px;">
+
+      <!-- Aerospace background (Unsplash) -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1800&auto=format&fit=crop&q=80"
+          alt="Earth from orbit"
+          class="w-full h-full object-cover opacity-25"
+          loading="eager"
+        />
+        <div class="hero-overlay absolute inset-0"></div>
+        <!-- Radial vignette -->
+        <div class="absolute inset-0" style="background:radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, #080808 100%);"></div>
+      </div>
+
+      <!-- Orbit decoration rings -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0" aria-hidden="true">
+        <div class="orbit-ring absolute" style="width:500px;height:500px;top:-250px;left:-250px;"></div>
+        <div class="orbit-ring orbit-ring-2 absolute" style="width:750px;height:750px;top:-375px;left:-375px;"></div>
+        <div class="orbit-ring absolute" style="width:1050px;height:1050px;top:-525px;left:-525px;animation-duration:60s;"></div>
+      </div>
+
+      <!-- Hero content -->
+      <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10 py-24">
+
+        <p class="section-label mb-6 reveal">01 — Introduction</p>
+
+        <h1 class="font-display font-extrabold text-5xl sm:text-6xl lg:text-8xl leading-[0.95] text-white mb-6 reveal reveal-delay-1">
+          Aerospace<br/>
+          <span class="text-cyan glow-cyan">Engineer</span>
+        </h1>
+
+        <p class="font-display text-xl lg:text-2xl text-silver font-light max-w-2xl mb-4 reveal reveal-delay-2">
+          Crafting the Future of Flight &amp; Space
+        </p>
+
+        <p class="font-body text-ghost text-base lg:text-lg max-w-xl mb-10 leading-relaxed reveal reveal-delay-3">
+          Specializing in advanced aerodynamics, spacecraft propulsion, and UAV systems. Turning physics into flight — from computational fluid dynamics to physical prototypes.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4 mb-16 reveal reveal-delay-4">
+          <a href="#projects" class="btn-cyan font-mono text-sm tracking-widest py-3 px-8 rounded-md">Explore Projects</a>
+          <a href="#"         class="btn-white font-mono text-sm tracking-widest py-3 px-8 rounded-md">Download Resume</a>
+        </div>
+
+        <!-- Quick stat bar -->
+        <div class="flex flex-wrap gap-6 reveal reveal-delay-5">
+          <div>
+            <p class="font-display font-bold text-2xl text-white">8+</p>
+            <p class="font-mono text-ghost text-xs tracking-wider mt-1">Years Experience</p>
+          </div>
+          <div class="w-px bg-border self-stretch hidden sm:block"></div>
+          <div>
+            <p class="font-display font-bold text-2xl text-white">14</p>
+            <p class="font-mono text-ghost text-xs tracking-wider mt-1">Projects Shipped</p>
+          </div>
+          <div class="w-px bg-border self-stretch hidden sm:block"></div>
+          <div>
+            <p class="font-display font-bold text-2xl text-white">3</p>
+            <p class="font-mono text-ghost text-xs tracking-wider mt-1">Patents Filed</p>
+          </div>
+          <div class="w-px bg-border self-stretch hidden sm:block"></div>
+          <div>
+            <p class="font-display font-bold text-2xl text-white">M.Sc.</p>
+            <p class="font-mono text-ghost text-xs tracking-wider mt-1">Aerospace Eng.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-dim" aria-hidden="true">
+        <span class="font-mono text-xs tracking-widest uppercase">Scroll</span>
+        <svg class="animate-[scrollY_2s_ease-in-out_infinite]" width="14" height="22" viewBox="0 0 14 22" fill="none">
+          <rect x="1" y="1" width="12" height="20" rx="6" stroke="#2a2a2a" stroke-width="1.5"/>
+          <rect x="5.5" y="5" width="3" height="5" rx="1.5" fill="#00e5ff"/>
+        </svg>
+      </div>
+
+    </section>
+
+    <!-- Divider -->
+    <div class="divider mx-6 lg:mx-10"></div>
+
+    <!-- ══════════════════════════════════════ ABOUT ═══════════════ -->
+    <section id="about" class="py-24 lg:py-32 max-w-6xl mx-auto px-6 lg:px-10">
+
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+
+        <!-- Photo col -->
+        <div class="reveal">
+          <div class="photo-frame aspect-[4/5] max-w-sm mx-auto lg:mx-0">
+            <img
+              src="https://images.unsplash.com/photo-1559329255-2a3b5a4db5f9?w=800&auto=format&fit=crop&q=80"
+              alt="Ajinkya Jawahire – Aerospace Engineer"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <!-- Stat tiles below photo -->
+          <div class="grid grid-cols-3 gap-3 mt-5 max-w-sm mx-auto lg:mx-0">
+            <div class="stat-card p-4 text-center">
+              <p class="font-display font-bold text-xl text-cyan">CFD</p>
+              <p class="font-mono text-ghost text-[10px] mt-1 tracking-wide">Expert</p>
+            </div>
+            <div class="stat-card p-4 text-center">
+              <p class="font-display font-bold text-xl text-white">UAV</p>
+              <p class="font-mono text-ghost text-[10px] mt-1 tracking-wide">Design</p>
+            </div>
+            <div class="stat-card p-4 text-center">
+              <p class="font-display font-bold text-xl text-white">FEA</p>
+              <p class="font-mono text-ghost text-[10px] mt-1 tracking-wide">Analysis</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio col -->
+        <div>
+          <p class="section-label mb-4 reveal">02 — About Me</p>
+          <h2 class="font-display font-extrabold text-4xl lg:text-5xl text-white leading-tight mb-8 reveal reveal-delay-1">
+            Pushing the<br/>Boundaries of<br/><span class="text-cyan">What Flies</span>
+          </h2>
+
+          <div class="space-y-5 text-silver leading-relaxed text-[15px] font-body reveal reveal-delay-2">
+            <p>
+              I'm Ajinkya Jawahire, an Aerospace Engineer with over 8 years of experience across propulsion systems, aerodynamic design, and autonomous flight. My work spans high-altitude UAVs, reusable launch vehicle concepts, and next-generation satellite structures.
+            </p>
+            <p>
+              At Orbital Dynamics Inc., I led a cross-functional team that achieved a 23% drag reduction on our orbital re-entry vehicle using advanced CFD optimization — a result that directly improved mission payload capacity. I believe rigorous simulation and physical intuition are inseparable.
+            </p>
+            <p>
+              When I'm not running ANSYS Fluent simulations or building CAD assemblies, I mentor undergraduate students on capstone rocket projects and contribute to open-source aerospace tooling on GitHub.
+            </p>
+          </div>
+
+          <!-- Highlights -->
+          <div class="mt-8 space-y-3 reveal reveal-delay-3">
+            <div class="flex items-center gap-3">
+              <span class="text-cyan font-mono text-xs">▹</span>
+              <span class="text-silver text-sm">M.Sc. Aerospace Engineering — Georgia Tech, 2018</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-cyan font-mono text-xs">▹</span>
+              <span class="text-silver text-sm">3 published papers in AIAA Journal</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-cyan font-mono text-xs">▹</span>
+              <span class="text-silver text-sm">FAA Part 107 Certified Remote Pilot</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-cyan font-mono text-xs">▹</span>
+              <span class="text-silver text-sm">NASA Space Apps Challenge Winner — 2021</span>
+            </div>
+          </div>
+
+          <div class="mt-10 flex gap-4 reveal reveal-delay-4">
+            <a href="#contact" class="btn-cyan font-mono text-xs tracking-widest py-2.5 px-6 rounded-md">Get in Touch</a>
+            <a href="#projects" class="font-mono text-xs text-ghost hover:text-cyan transition-colors flex items-center gap-2 tracking-wider">View Projects <span>→</span></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider mx-6 lg:mx-10"></div>
+
+    <!-- ══════════════════════════════════════ PROJECTS ════════════ -->
+    <section id="projects" class="py-24 lg:py-32 max-w-6xl mx-auto px-6 lg:px-10">
+
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
+        <div>
+          <p class="section-label mb-3 reveal">03 — Featured Work</p>
+          <h2 class="font-display font-extrabold text-4xl lg:text-5xl text-white leading-tight reveal reveal-delay-1">Selected<br/><span class="text-cyan">Projects</span></h2>
+        </div>
+        <p class="text-ghost font-body text-sm max-w-xs leading-relaxed reveal reveal-delay-2">
+          A selection of research and engineering projects spanning propulsion, aerodynamics, and autonomous systems.
+        </p>
+      </div>
+
+      <!-- Project grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Card 1 -->
+        <div class="project-card reveal" onclick="openModal(0)">
+          <div class="relative h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=700&auto=format&fit=crop&q=80" alt="Hypersonic Re-entry" class="w-full h-full object-cover" loading="lazy"/>
+            <div class="overlay absolute inset-0 flex flex-col justify-end p-5">
+              <button class="view-btn btn-cyan font-mono text-xs tracking-widest py-2 px-4 rounded self-start">View Case Study</button>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-pill">CFD</span>
+              <span class="tag-pill">ANSYS</span>
+              <span class="tag-pill">Hypersonic</span>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Hypersonic Re-entry Vehicle</h3>
+            <p class="text-ghost font-body text-sm leading-relaxed">Thermal protection system optimization reducing peak heat flux by 18% using ablative material simulation and CFD conjugate heat transfer.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="project-card reveal reveal-delay-1" onclick="openModal(1)">
+          <div class="relative h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=700&auto=format&fit=crop&q=80" alt="Fixed-Wing UAV" class="w-full h-full object-cover" loading="lazy"/>
+            <div class="overlay absolute inset-0 flex flex-col justify-end p-5">
+              <button class="view-btn btn-cyan font-mono text-xs tracking-widest py-2 px-4 rounded self-start">View Case Study</button>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-pill">UAV</span>
+              <span class="tag-pill">SolidWorks</span>
+              <span class="tag-pill">MATLAB</span>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Long-Endurance VTOL UAV</h3>
+            <p class="text-ghost font-body text-sm leading-relaxed">6-hour endurance hybrid UAV with tilt-rotor transition. Autonomous navigation stack with PX4 and custom MATLAB flight control laws.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="project-card reveal reveal-delay-2" onclick="openModal(2)">
+          <div class="relative h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=700&auto=format&fit=crop&q=80" alt="Rocket Engine" class="w-full h-full object-cover object-center" loading="lazy"/>
+            <div class="overlay absolute inset-0 flex flex-col justify-end p-5">
+              <button class="view-btn btn-cyan font-mono text-xs tracking-widest py-2 px-4 rounded self-start">View Case Study</button>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-pill">Propulsion</span>
+              <span class="tag-pill">FEA</span>
+              <span class="tag-pill">Python</span>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Bipropellant Rocket Engine</h3>
+            <p class="text-ghost font-body text-sm leading-relaxed">LOX/Kerosene pressure-fed rocket engine producing 500 N thrust. Full thermodynamic analysis, injector design, and chamber structural validation.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="project-card reveal reveal-delay-3" onclick="openModal(3)">
+          <div class="relative h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=700&auto=format&fit=crop&q=80" alt="Satellite" class="w-full h-full object-cover" loading="lazy"/>
+            <div class="overlay absolute inset-0 flex flex-col justify-end p-5">
+              <button class="view-btn btn-cyan font-mono text-xs tracking-widest py-2 px-4 rounded self-start">View Case Study</button>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-pill">Structures</span>
+              <span class="tag-pill">NX</span>
+              <span class="tag-pill">CubeSat</span>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">3U CubeSat Structure</h3>
+            <p class="text-ghost font-body text-sm leading-relaxed">Lightweight CFRP CubeSat primary structure designed for launch loads up to 20g. Passed vibration qualification testing with 0 structural failures.</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="project-card reveal reveal-delay-4" onclick="openModal(4)">
+          <div class="relative h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&auto=format&fit=crop&q=80" alt="Wind Tunnel" class="w-full h-full object-cover object-top" loading="lazy"/>
+            <div class="overlay absolute inset-0 flex flex-col justify-end p-5">
+              <button class="view-btn btn-cyan font-mono text-xs tracking-widest py-2 px-4 rounded self-start">View Case Study</button>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-pill">Wind Tunnel</span>
+              <span class="tag-pill">Aerodynamics</span>
+              <span class="tag-pill">Python</span>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Wing Profile Optimization</h3>
+            <p class="text-ghost font-body text-sm leading-relaxed">Inverse airfoil design for high-altitude operation at Mach 0.6–0.85. Validated against subsonic wind tunnel data with 4.5% lift coefficient improvement.</p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="project-card reveal reveal-delay-5" onclick="openModal(5)">
+          <div class="relative h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=700&auto=format&fit=crop&q=80" alt="Space Launch" class="w-full h-full object-cover" loading="lazy"/>
+            <div class="overlay absolute inset-0 flex flex-col justify-end p-5">
+              <button class="view-btn btn-cyan font-mono text-xs tracking-widest py-2 px-4 rounded self-start">View Case Study</button>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-pill">GNC</span>
+              <span class="tag-pill">MATLAB</span>
+              <span class="tag-pill">Simulink</span>
+            </div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Reusable First Stage GNC</h3>
+            <p class="text-ghost font-body text-sm leading-relaxed">Guidance, navigation &amp; control algorithms for vertical landing maneuver. 6-DOF simulation with Monte Carlo dispersion analysis across 1,000+ trajectories.</p>
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+    </section>
+
+    <div class="divider mx-6 lg:mx-10"></div>
+
+    <!-- ══════════════════════════════════════ SKILLS ══════════════ -->
+    <section id="skills" class="py-24 lg:py-32 max-w-6xl mx-auto px-6 lg:px-10">
+
+      <p class="section-label mb-4 reveal">04 — Technical Arsenal</p>
+      <h2 class="font-display font-extrabold text-4xl lg:text-5xl text-white leading-tight mb-14 reveal reveal-delay-1">
+        Skills &amp; <span class="text-cyan">Tools</span>
+      </h2>
+
+      <div class="space-y-10">
+
+        <!-- CAD -->
+        <div class="reveal">
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-4">CAD &amp; Design</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">⚙️</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">SolidWorks</p><p class="text-dim text-xs font-mono">Proficient</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🔩</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Siemens NX</p><p class="text-dim text-xs font-mono">Advanced</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">📐</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">CATIA V5</p><p class="text-dim text-xs font-mono">Intermediate</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🖥️</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">AutoCAD</p><p class="text-dim text-xs font-mono">Proficient</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation -->
+        <div class="reveal reveal-delay-1">
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-4">Simulation &amp; Analysis</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">💨</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">ANSYS Fluent</p><p class="text-dim text-xs font-mono">Expert</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🔥</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">ANSYS Mechanical</p><p class="text-dim text-xs font-mono">Advanced</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🌊</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">OpenFOAM</p><p class="text-dim text-xs font-mono">Advanced</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">⚡</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Abaqus FEA</p><p class="text-dim text-xs font-mono">Intermediate</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Programming -->
+        <div class="reveal reveal-delay-2">
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-4">Programming &amp; GNC</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🐍</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Python</p><p class="text-dim text-xs font-mono">Expert</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">📊</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">MATLAB</p><p class="text-dim text-xs font-mono">Expert</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🎮</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Simulink</p><p class="text-dim text-xs font-mono">Advanced</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">⌨️</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">C++</p><p class="text-dim text-xs font-mono">Intermediate</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manufacturing -->
+        <div class="reveal reveal-delay-3">
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-4">Manufacturing &amp; Testing</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🖨️</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">3D Printing / AM</p><p class="text-dim text-xs font-mono">Advanced</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🧱</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Composites / CFRP</p><p class="text-dim text-xs font-mono">Proficient</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🌬️</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Wind Tunnel Ops</p><p class="text-dim text-xs font-mono">Advanced</p></div>
+            </div>
+            <div class="skill-chip p-4 flex items-center gap-3">
+              <span class="text-xl">🔬</span>
+              <div><p class="text-ivory text-sm font-display font-semibold">Structural Testing</p><p class="text-dim text-xs font-mono">Proficient</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /skill rows -->
+
+      <!-- Proficiency bar chart style -->
+      <div class="mt-14 reveal reveal-delay-4">
+        <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-6">Core Competencies</p>
+        <div class="grid sm:grid-cols-2 gap-x-16 gap-y-5">
+          <div>
+            <div class="flex justify-between mb-2"><span class="font-body text-silver text-sm">Computational Fluid Dynamics</span><span class="font-mono text-cyan text-xs">95%</span></div>
+            <div class="h-0.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-cyan rounded-full" style="width:95%;box-shadow:0 0 8px rgba(0,229,255,0.4);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2"><span class="font-body text-silver text-sm">Structural FEA</span><span class="font-mono text-cyan text-xs">88%</span></div>
+            <div class="h-0.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-cyan rounded-full" style="width:88%;box-shadow:0 0 8px rgba(0,229,255,0.4);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2"><span class="font-body text-silver text-sm">Propulsion Systems</span><span class="font-mono text-cyan text-xs">82%</span></div>
+            <div class="h-0.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-cyan rounded-full" style="width:82%;box-shadow:0 0 8px rgba(0,229,255,0.4);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2"><span class="font-body text-silver text-sm">GNC / Flight Control</span><span class="font-mono text-cyan text-xs">78%</span></div>
+            <div class="h-0.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-cyan rounded-full" style="width:78%;box-shadow:0 0 8px rgba(0,229,255,0.4);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2"><span class="font-body text-silver text-sm">CAD Modeling</span><span class="font-mono text-cyan text-xs">92%</span></div>
+            <div class="h-0.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-cyan rounded-full" style="width:92%;box-shadow:0 0 8px rgba(0,229,255,0.4);"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2"><span class="font-body text-silver text-sm">Python / MATLAB</span><span class="font-mono text-cyan text-xs">90%</span></div>
+            <div class="h-0.5 bg-muted rounded-full overflow-hidden"><div class="h-full bg-cyan rounded-full" style="width:90%;box-shadow:0 0 8px rgba(0,229,255,0.4);"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="divider mx-6 lg:mx-10"></div>
+
+    <!-- ══════════════════════════════════════ EXPERIENCE ══════════ -->
+    <section id="experience" class="py-24 lg:py-32 max-w-6xl mx-auto px-6 lg:px-10">
+
+      <p class="section-label mb-4 reveal">05 — Career Path</p>
+      <h2 class="font-display font-extrabold text-4xl lg:text-5xl text-white leading-tight mb-14 reveal reveal-delay-1">
+        Experience &amp; <span class="text-cyan">Education</span>
+      </h2>
+
+      <div class="grid lg:grid-cols-2 gap-14">
+
+        <!-- Work Experience -->
+        <div>
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-8 reveal">Work Experience</p>
+          <div class="relative pl-8">
+            <div class="timeline-line"></div>
+
+            <!-- Job 1 -->
+            <div class="mb-10 reveal">
+              <div class="flex gap-4">
+                <div class="timeline-dot mt-1.5"></div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-3 mb-1">
+                    <h3 class="font-display font-bold text-white text-lg">Senior Aerospace Engineer</h3>
+                    <span class="tag-pill">2022 – Present</span>
+                  </div>
+                  <p class="text-cyan font-mono text-xs tracking-wider mb-3">Orbital Dynamics Inc. · Houston, TX</p>
+                  <ul class="space-y-2 text-ghost font-body text-sm">
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Led aerodynamic redesign of re-entry vehicle, achieving 23% drag reduction</li>
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Managed team of 6 engineers across CFD, structures, and GNC disciplines</li>
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Filed 2 patents on TPS material stack configurations</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="mb-10 reveal reveal-delay-1">
+              <div class="flex gap-4">
+                <div class="timeline-dot mt-1.5"></div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-3 mb-1">
+                    <h3 class="font-display font-bold text-white text-lg">Propulsion Engineer</h3>
+                    <span class="tag-pill">2019 – 2022</span>
+                  </div>
+                  <p class="text-cyan font-mono text-xs tracking-wider mb-3">AeroJet Systems · Huntsville, AL</p>
+                  <ul class="space-y-2 text-ghost font-body text-sm">
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Designed injector element for LOX/Methane 5 kN thruster</li>
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Conducted 40+ hot-fire tests, increasing Isp by 7%</li>
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Implemented Python-based data pipeline for real-time telemetry analysis</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="mb-2 reveal reveal-delay-2">
+              <div class="flex gap-4">
+                <div class="timeline-dot mt-1.5"></div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-3 mb-1">
+                    <h3 class="font-display font-bold text-white text-lg">Aerospace Engineering Intern</h3>
+                    <span class="tag-pill">Summer 2017</span>
+                  </div>
+                  <p class="text-cyan font-mono text-xs tracking-wider mb-3">NASA Marshall Space Flight Center · Huntsville, AL</p>
+                  <ul class="space-y-2 text-ghost font-body text-sm">
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Supported CFD analysis for SLS core stage aeroloads</li>
+                    <li class="flex gap-2"><span class="text-cyan shrink-0">▹</span>Developed MATLAB post-processing scripts for 30% faster data review</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div>
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-8 reveal">Education</p>
+          <div class="relative pl-8">
+            <div class="timeline-line"></div>
+
+            <div class="mb-10 reveal">
+              <div class="flex gap-4">
+                <div class="timeline-dot mt-1.5" style="background:#f5a623;box-shadow:0 0 10px rgba(245,166,35,0.5);"></div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-3 mb-1">
+                    <h3 class="font-display font-bold text-white text-lg">M.Sc. Aerospace Engineering</h3>
+                    <span class="tag-pill">2016 – 2018</span>
+                  </div>
+                  <p class="text-amber font-mono text-xs tracking-wider mb-3">Georgia Institute of Technology</p>
+                  <p class="text-ghost font-body text-sm">Focus: Aerodynamics &amp; Propulsion. GPA: 3.92/4.0. Thesis: <em class="text-silver">"Adaptive CFD Mesh Refinement for Transonic Wing Optimization."</em></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-10 reveal reveal-delay-1">
+              <div class="flex gap-4">
+                <div class="timeline-dot mt-1.5" style="background:#f5a623;box-shadow:0 0 10px rgba(245,166,35,0.5);"></div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-3 mb-1">
+                    <h3 class="font-display font-bold text-white text-lg">B.Sc. Mechanical Engineering</h3>
+                    <span class="tag-pill">2012 – 2016</span>
+                  </div>
+                  <p class="text-amber font-mono text-xs tracking-wider mb-3">University of Michigan, Ann Arbor</p>
+                  <p class="text-ghost font-body text-sm">Minor in Aerospace Engineering. Dean's List (all semesters). Senior project: liquid-fueled hybrid rocket motor design.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Certifications -->
+          <div class="reveal reveal-delay-2 mt-2">
+            <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-5">Certifications &amp; Awards</p>
+            <div class="space-y-3">
+              <div class="stat-card p-4 flex items-center gap-4">
+                <span class="text-cyan text-lg">🏆</span>
+                <div>
+                  <p class="text-ivory text-sm font-display font-semibold">NASA Space Apps Challenge Winner</p>
+                  <p class="text-dim font-mono text-xs">2021 · Orbital Mechanics Track</p>
+                </div>
+              </div>
+              <div class="stat-card p-4 flex items-center gap-4">
+                <span class="text-cyan text-lg">📜</span>
+                <div>
+                  <p class="text-ivory text-sm font-display font-semibold">FAA Part 107 Remote Pilot</p>
+                  <p class="text-dim font-mono text-xs">2020 · Certificate #4107284</p>
+                </div>
+              </div>
+              <div class="stat-card p-4 flex items-center gap-4">
+                <span class="text-cyan text-lg">✍️</span>
+                <div>
+                  <p class="text-ivory text-sm font-display font-semibold">3× AIAA Journal Publications</p>
+                  <p class="text-dim font-mono text-xs">2018, 2020, 2023</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /grid -->
+    </section>
+
+    <div class="divider mx-6 lg:mx-10"></div>
+
+    <!-- ══════════════════════════════════════ CONTACT ═════════════ -->
+    <section id="contact" class="py-24 lg:py-32 max-w-6xl mx-auto px-6 lg:px-10">
+
+      <p class="section-label mb-4 reveal">06 — Get In Touch</p>
+      <h2 class="font-display font-extrabold text-4xl lg:text-5xl text-white leading-tight mb-4 reveal reveal-delay-1">
+        Let's Build<br/><span class="text-cyan">Something</span><br/>Extraordinary
+      </h2>
+      <p class="text-ghost font-body text-sm max-w-md leading-relaxed mb-14 reveal reveal-delay-2">
+        Open to full-time opportunities, research collaborations, consulting engagements, and speaking at aerospace conferences.
+      </p>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+
+        <!-- Form -->
+        <form class="space-y-5 reveal" onsubmit="handleFormSubmit(event)">
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="font-mono text-ghost text-xs tracking-widest block mb-2">Name</label>
+              <input type="text" placeholder="Jane Smith" class="form-input py-3 px-4 text-sm" required />
+            </div>
+            <div>
+              <label class="font-mono text-ghost text-xs tracking-widest block mb-2">Email</label>
+              <input type="email" placeholder="jane@company.com" class="form-input py-3 px-4 text-sm" required />
+            </div>
+          </div>
+          <div>
+            <label class="font-mono text-ghost text-xs tracking-widest block mb-2">Subject</label>
+            <input type="text" placeholder="Job Opportunity at SpaceX…" class="form-input py-3 px-4 text-sm" />
+          </div>
+          <div>
+            <label class="font-mono text-ghost text-xs tracking-widest block mb-2">Message</label>
+            <textarea rows="5" placeholder="Tell me about the project or role…" class="form-input py-3 px-4 text-sm resize-none"></textarea>
+          </div>
+          <button type="submit" id="form-submit-btn" class="btn-cyan font-mono text-sm tracking-widest py-3 px-8 rounded-md w-full transition-all">
+            Send Message →
+          </button>
+          <div id="form-success" class="hidden text-cyan font-mono text-sm text-center py-3 border border-cyan/20 rounded-md bg-cyan/5">
+            ✓ Message sent! I'll reply within 24 hours.
+          </div>
+        </form>
+
+        <!-- Contact info -->
+        <div class="reveal reveal-delay-1">
+          <div class="space-y-6 mb-10">
+            <div class="flex items-start gap-4">
+              <div class="stat-card p-3 mt-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-1">Email</p>
+                <a href="mailto:alex.carter@example.com" class="text-ivory hover:text-cyan transition-colors text-sm">alex.carter@example.com</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="stat-card p-3 mt-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+              </div>
+              <div>
+                <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-1">Location</p>
+                <p class="text-ivory text-sm">Houston, TX &amp; Open to Relocation</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="stat-card p-3 mt-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-1">Availability</p>
+                <p class="text-ivory text-sm">Open to opportunities from <span class="text-cyan">Q3 2026</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social links -->
+          <p class="font-mono text-ghost text-xs tracking-widest uppercase mb-4">Find Me Online</p>
+          <div class="flex gap-3 flex-wrap">
+            <a href="#" class="social-btn" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#e8e8e8"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e8e8e8" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Google Scholar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e8e8e8" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Twitter/X">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#e8e8e8"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="ResearchGate">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#e8e8e8"><path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a12.193 12.193 0 00-.172.524l-1.868-.084a8.247 8.247 0 01-.169-.556c-.305-1.131-.87-2.012-1.685-2.639C11.63.864 10.622.5 9.418.5a7.36 7.36 0 00-3.234.747C4.937 1.877 3.8 2.92 2.982 4.3 2.162 5.677 1.75 7.248 1.75 9.011c0 1.787.417 3.366 1.25 4.74.832 1.375 1.975 2.44 3.425 3.198 1.453.756 3.056 1.133 4.812 1.133 1.756 0 3.348-.39 4.776-1.167 1.43-.778 2.56-1.872 3.387-3.28.826-1.41 1.24-3.028 1.24-4.857 0-.266-.008-.527-.024-.78h1.893c.024.284.036.567.036.854 0 2.27-.547 4.258-1.64 5.964-1.096 1.706-2.578 3.016-4.45 3.93-1.874.912-3.978 1.37-6.313 1.37-2.254 0-4.303-.443-6.148-1.33-1.845-.888-3.302-2.145-4.37-3.773C.5 13.484 0 11.601 0 9.465c0-2.135.5-4.018 1.5-5.649 1-1.63 2.356-2.897 4.068-3.802C7.28.109 9.1-.333 11.027-.333c1.5 0 2.868.303 4.102.91a8.08 8.08 0 012.966 2.635l.163-.01a9.07 9.07 0 011.32-1.98C20.072.516 20.83.16 21.664.16c.645 0 1.166.21 1.564.627.398.42.596.954.596 1.603 0 .658-.198 1.193-.594 1.605-.397.413-.918.62-1.564.62-.39 0-.75-.084-1.08-.25z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ FOOTER ══════════════ -->
+    <footer class="border-t border-border py-10 max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span class="font-display font-bold text-white">A<span class="text-cyan">.</span>Carter</span>
+        <p class="font-mono text-dim text-xs text-center">
+          © 2026 Ajinkya Jawahire · Aerospace Engineer · Built with precision &amp; ☕
+        </p>
+        <a href="#hero" class="font-mono text-ghost text-xs hover:text-cyan transition-colors tracking-wider">Back to top ↑</a>
+      </div>
+    </footer>
+
+  </div><!-- /scroll-root -->
+
+
+  <!-- ─────────────────────────────────────── SCRIPTS ── -->
+  <script>
+  /* ── Scroll root reference ── */
+  const scrollRoot = document.getElementById('scroll-root');
+
+  /* ── Cursor glow ── */
+  const cursorGlow = document.getElementById('cursor-glow');
+  document.addEventListener('mousemove', e => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top  = e.clientY + 'px';
+  });
+
+  /* ── Progress bar ── */
+  scrollRoot.addEventListener('scroll', () => {
+    const el = document.getElementById('progress-bar');
+    const pct = scrollRoot.scrollTop / (scrollRoot.scrollHeight - scrollRoot.clientHeight) * 100;
+    el.style.width = pct + '%';
+  });
+
+  /* ── Navbar on scroll ── */
+  scrollRoot.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    scrollRoot.scrollTop > 60
+      ? nav.classList.add('scrolled')
+      : nav.classList.remove('scrolled');
+  });
+
+  /* ── Reveal on scroll ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px', root: scrollRoot });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── Mobile nav ── */
+  function toggleMobileNav() {
+    const btn = document.getElementById('ham-btn');
+    const nav = document.getElementById('mobile-nav');
+    const ovl = document.getElementById('mobile-overlay');
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+    ovl.classList.toggle('opacity-0');
+    ovl.classList.toggle('pointer-events-none');
+    ovl.classList.toggle('opacity-100');
+  }
+  function closeMobileNav() {
+    const btn = document.getElementById('ham-btn');
+    const nav = document.getElementById('mobile-nav');
+    const ovl = document.getElementById('mobile-overlay');
+    btn.classList.remove('open');
+    nav.classList.remove('open');
+    ovl.classList.add('opacity-0', 'pointer-events-none');
+    ovl.classList.remove('opacity-100');
+  }
+
+  /* ── Project data for modals ── */
+  const projects = [
+    {
+      title: 'Hypersonic Re-entry Vehicle',
+      tags: ['CFD', 'ANSYS Fluent', 'Hypersonic Aero', 'Thermal Protection'],
+      image: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=900&auto=format&fit=crop&q=80',
+      challenge: 'Reduce peak stagnation heat flux on the vehicle nose-cap during re-entry at Mach 21, where surface temperatures exceed 1,600 °C and conventional ablative designs were over-mass.',
+      solution: 'Performed conjugate heat transfer + ablation simulation in ANSYS Fluent with adaptive mesh refinement at the bow shock. Iterated through 12 material stack configurations using a Python-scripted parametric study, identifying a novel dual-layer PICA/Silicone coating arrangement.',
+      results: [
+        '18% reduction in peak heat flux at stagnation point',
+        'Mass saving of 4.2 kg on TPS relative to baseline',
+        'Simulation results correlated with arc-jet test data within 6%',
+        'Design adopted for Phase II mission concept study',
+      ],
+    },
+    {
+      title: 'Long-Endurance VTOL UAV',
+      tags: ['UAV Design', 'SolidWorks', 'MATLAB', 'PX4', 'Flight Control'],
+      image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=900&auto=format&fit=crop&q=80',
+      challenge: 'Design a hybrid VTOL UAV capable of 6-hour endurance carrying a 2 kg sensor payload, with seamless VTOL-to-fixed-wing transition and autonomous long-range navigation.',
+      solution: 'Tilt-rotor blended-wing-body design with a diesel/electric hybrid power plant. Custom transition controller using LQR with gain scheduling, implemented in MATLAB/Simulink and ported to PX4. Full SolidWorks assembly with CFD-validated wing selection.',
+      results: [
+        '6.4-hour flight endurance achieved in field trials',
+        'Sub-2-second VTOL transition with no altitude exceedance >3 m',
+        'Successful 85 km autonomous survey mission in Class G airspace',
+        'Platform licensed to agriculture monitoring startup',
+      ],
+    },
+    {
+      title: 'Bipropellant Rocket Engine',
+      tags: ['Propulsion', 'FEA', 'Python', 'Thermodynamics', 'Combustion'],
+      image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=900&auto=format&fit=crop&q=80',
+      challenge: 'Design and validate a 500 N LOX/Kerosene pressure-fed engine demonstrating stable combustion, structural integrity under thermal and mechanical loads, and specific impulse ≥ 290 s.',
+      solution: 'Full CEA-based thermochemical sizing, showerhead injector design with element characterization, copper-alloy combustion chamber with Inconel nozzle. ANSYS thermal-structural FEA for chamber wall certification. Python DAQ system for hot-fire data acquisition.',
+      results: [
+        'Isp of 293 s at sea level, 1.0% above target',
+        'Chamber pressure stability ±1.5% across 8 hot-fire tests',
+        'Zero structural failures across qualification test series',
+        'Patent filed on injector face geometry (pending)',
+      ],
+    },
+    {
+      title: '3U CubeSat Primary Structure',
+      tags: ['Structures', 'Siemens NX', 'CFRP', 'CubeSat', 'Launch Loads'],
+      image: 'https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=900&auto=format&fit=crop&q=80',
+      challenge: 'Design a CubeSat primary structure in compliance with the CDS standard that survives launch random vibration and quasi-static loads up to 20g while minimizing mass.',
+      solution: 'CFRP uni-directional ply layup optimized using NX Nastran topology optimization. Ribs and skin approach trading mass vs. stiffness. ECSS-compliant finite element model with frequency response and random vibration analysis.',
+      results: [
+        'Structural mass 28% below aluminum heritage design',
+        'First natural frequency 182 Hz, exceeding 90 Hz requirement',
+        'Passed full GEVS vibration qualification with 0 failures',
+        'Structure integrated in satellite delivered to ISS',
+      ],
+    },
+    {
+      title: 'Wing Profile Optimization',
+      tags: ['Aerodynamics', 'Wind Tunnel', 'Python', 'Airfoil Design'],
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&auto=format&fit=crop&q=80',
+      challenge: 'Develop an airfoil optimized for high-altitude cruise operation in the transonic regime (Mach 0.6–0.85), maximizing lift-to-drag ratio while meeting wing-box structural constraints.',
+      solution: 'Inverse design approach using XFOIL + panel method with CST parameterization. Gradient-based optimization via MATLAB fmincon driving a Python-XFOIL wrapper. Final profile validated in University subsonic wind tunnel over 12 test points.',
+      results: [
+        'L/D improvement of 4.5% vs. NACA 2412 baseline at Mach 0.72',
+        'Drag divergence Mach number shifted from 0.80 to 0.84',
+        'Wind tunnel correlation R² = 0.97 vs. XFOIL predictions',
+        'Results submitted to AIAA SciTech 2024',
+      ],
+    },
+    {
+      title: 'Reusable First Stage GNC',
+      tags: ['GNC', 'MATLAB', 'Simulink', 'Control Systems', 'Monte Carlo'],
+      image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=900&auto=format&fit=crop&q=80',
+      challenge: 'Develop a full GNC stack for autonomous vertical landing of a first-stage rocket booster, achieving a landing accuracy of <5 m CEP across dispersed initial conditions.',
+      solution: 'Minimum-fuel powered descent guidance using convex optimization (lossless convexification). LQR-based attitude controller. Full 6-DOF simulation in Simulink with actuator, sensor, and atmospheric models. 1,000-run Monte Carlo dispersion analysis.',
+      results: [
+        '2.3 m CEP in Monte Carlo across 1,000 dispersed runs',
+        'Propellant consumption within 2.1% of optimal (nominal)',
+        '99.7% mission success rate under worst-case wind dispersions',
+        'Code open-sourced — 400+ GitHub stars',
+      ],
+    },
+  ];
+
+  /* ── Open modal ── */
+  function openModal(idx) {
+    const p = projects[idx];
+    document.getElementById('modal-content').innerHTML = `
+      <div class="rounded-lg overflow-hidden mb-6" style="height:220px;">
+        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover"/>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-4">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+      <h2 id="modal-title" class="font-display font-extrabold text-2xl text-white mb-6">${p.title}</h2>
+      <div class="space-y-6">
+        <div>
+          <p class="section-label mb-2">Challenge</p>
+          <p class="text-silver font-body text-sm leading-relaxed">${p.challenge}</p>
+        </div>
+        <div>
+          <p class="section-label mb-2">Solution</p>
+          <p class="text-silver font-body text-sm leading-relaxed">${p.solution}</p>
+        </div>
+        <div>
+          <p class="section-label mb-3">Results</p>
+          <ul class="space-y-2">
+            ${p.results.map(r => `<li class="flex gap-2 text-silver font-body text-sm"><span class="text-cyan shrink-0">▹</span>${r}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleModalClick(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  /* ── Contact form ── */
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.style.display = 'none';
+      document.getElementById('form-success').classList.remove('hidden');
+    }, 1200);
+  }
+
+  /* ── Keyboard accessibility for modal ── */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+  </script>
+
+</body>
+</html>
